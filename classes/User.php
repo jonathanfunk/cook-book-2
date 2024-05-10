@@ -45,5 +45,30 @@ class User {
         session_unset();
         session_destroy();
     }
+    public function usernameExists($username) {
+      $username = sanitize_input($username);
+      $sql = "SELECT COUNT(*) AS count FROM users WHERE username = ?";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bind_param("s", $username);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $row = $result->fetch_assoc();
+      echo "Username count: " . $row['count']; // Debug output
+      return $row['count'] > 0; // Returns true if username exists, false otherwise
+  }
+  
+  public function emailExists($email) {
+      $email = sanitize_input($email);
+      $sql = "SELECT COUNT(*) AS count FROM users WHERE email = ?";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bind_param("s", $email);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $row = $result->fetch_assoc();
+      echo "Email count: " . $row['count']; // Debug output
+      return $row['count'] > 0; // Returns true if email exists, false otherwise
+  }
+  
+  
 }
 ?>
