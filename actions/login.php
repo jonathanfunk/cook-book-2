@@ -10,16 +10,15 @@ $user = new User($conn);
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
-    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if ($user->register($username, $email, $password)) {
-        // Registration successful, redirect to login page
-        header("Location: ../login.php");
+    if ($user->login($username, $password)) {
+        // Login successful, redirect to homepage
+        header("Location: ../index.php");
         exit();
     } else {
-        // Registration failed
-        echo "Registration failed.";
+        // Login failed
+        echo "Invalid username or password.";
     }
 }
 ?>

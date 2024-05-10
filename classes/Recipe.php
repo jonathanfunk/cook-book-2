@@ -22,6 +22,30 @@ class Recipe {
         }
     }
     
-    // Add functions for editRecipe, deleteRecipe, and other CRUD operations
+    public function editRecipe($recipe_id, $title, $description, $ingredients, $instructions) {
+        // Sanitize input
+        $title = sanitize_input($title);
+        $description = sanitize_input($description);
+        $ingredients = sanitize_input($ingredients);
+        $instructions = sanitize_input($instructions);
+        
+        // Update recipe in database
+        $sql = "UPDATE recipes SET title='$title', description='$description', ingredients='$ingredients', instructions='$instructions' WHERE id='$recipe_id'";
+        if ($this->conn->query($sql) === TRUE) {
+            return true; // Recipe updated successfully
+        } else {
+            return false; // Updating recipe failed
+        }
+    }
+    
+    public function deleteRecipe($recipe_id) {
+        // Delete recipe from database
+        $sql = "DELETE FROM recipes WHERE id='$recipe_id'";
+        if ($this->conn->query($sql) === TRUE) {
+            return true; // Recipe deleted successfully
+        } else {
+            return false; // Deleting recipe failed
+        }
+    }
 }
 ?>
