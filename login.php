@@ -11,9 +11,12 @@ unset($_SESSION['login_error']); // Clear error after displaying
       <div class="card">
         <div class="card-header">Login</div>
         <div class="card-body">
-          <?php if ($login_error): ?>
-          <div class="alert alert-danger"><?php echo $login_error; ?></div>
-          <?php endif; ?>
+          <?php
+                        // Display error message if login fails
+                        if (isset($_GET['error']) && $_GET['error'] == 'invalid') {
+                            echo '<div class="alert alert-danger" role="alert">Invalid username or password.</div>';
+                        }
+                        ?>
           <form action="actions/login.php" method="post">
             <div class="form-group">
               <label for="username">Username</label>

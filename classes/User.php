@@ -45,5 +45,16 @@ class User {
         session_unset();
         session_destroy();
     }
+    public function getUserIdByUsername($username) {
+      // Retrieve user ID from the database
+      $sql = "SELECT id FROM users WHERE username = '$username'";
+      $result = $this->conn->query($sql);
+      if ($result && $result->num_rows > 0) {
+          $row = $result->fetch_assoc();
+          return $row['id'];
+      } else {
+          return false; // User ID not found
+      }
+  }
 }
 ?>

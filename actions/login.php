@@ -13,12 +13,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     if ($user->login($username, $password)) {
-        // Login successful, redirect to homepage
-        header("Location: ../index.php");
-        exit();
+        // Login successful, retrieve user ID from the database
+        $user_id = $user->getUserIdByUsername($username); // Assuming you have a method to retrieve user ID by username
+        if ($user_id) {
+            $_SESSION['user_id'] = $user_id;
+            header("Location: ../index.php");
+            exit();
+        } else {
+            // User ID not found, handle error
+            echo "Error: Unable to retrieve user ID.";
+            exit();
+        }
     } else {
-        // Login failed
-        echo "Invalid username or password.";
+        // Login failed, redirect back to login page with error message
+        header("Location: ../login.php?error=invalid");
+        exit();
     }
 }
 ?>
