@@ -13,6 +13,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    // Check if username is already in use
+    if ($user->isUsernameTaken($username)) {
+        header("Location: ../register.php?error=username_taken");
+        exit();
+    }
+
+    // Check if email is already in use
+    if ($user->isEmailTaken($email)) {
+        header("Location: ../register.php?error=email_taken");
+        exit();
+    }
+
     // Attempt to register user
     if ($user->register($username, $email, $password)) {
         // Registration successful, now log in the user

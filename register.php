@@ -17,24 +17,28 @@ function display_error($field) {
       <div class="card">
         <div class="card-header">Register</div>
         <div class="card-body">
-          <?php if (isset($errors['general'])): ?>
-          <div class="alert alert-danger"><?php echo $errors['general']; ?></div>
-          <?php endif; ?>
+          <?php
+                        // Display error message if username or email is taken
+                        if (isset($_GET['error'])) {
+                            if ($_GET['error'] == 'username_taken') {
+                                echo '<div class="alert alert-danger" role="alert">Username already in use.</div>';
+                            } elseif ($_GET['error'] == 'email_taken') {
+                                echo '<div class="alert alert-danger" role="alert">Email already in use.</div>';
+                            }
+                        }
+                        ?>
           <form action="actions/register.php" method="post">
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" id="username" name="username" required>
-              <?php echo display_error('username'); ?>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" class="form-control" id="email" name="email" required>
-              <?php echo display_error('email'); ?>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
               <input type="password" class="form-control" id="password" name="password" required>
-              <?php echo display_error('password'); ?>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
           </form>

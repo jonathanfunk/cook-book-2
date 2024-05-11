@@ -56,5 +56,19 @@ class User {
           return false; // User ID not found
       }
   }
+
+  public function isUsernameTaken($username) {
+    // Check if username is already in use
+    $sql = "SELECT * FROM users WHERE username = '$username'";
+    $result = $this->conn->query($sql);
+    return ($result && $result->num_rows > 0);
+}
+
+public function isEmailTaken($email) {
+    // Check if email is already in use
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = $this->conn->query($sql);
+    return ($result && $result->num_rows > 0);
+}
 }
 ?>
