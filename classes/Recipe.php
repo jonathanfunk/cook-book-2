@@ -43,21 +43,24 @@ class Recipe {
       }
   }
     
-    public function editRecipe($recipe_id, $title, $description, $ingredients, $instructions) {
-        // Sanitize input
-        $title = sanitize_input($title);
-        $description = sanitize_input($description);
-        $ingredients = sanitize_input($ingredients);
-        $instructions = sanitize_input($instructions);
-        
-        // Update recipe in database
-        $sql = "UPDATE recipes SET title='$title', description='$description', ingredients='$ingredients', instructions='$instructions' WHERE id='$recipe_id'";
-        if ($this->conn->query($sql) === TRUE) {
-            return true; // Recipe updated successfully
-        } else {
-            return false; // Updating recipe failed
-        }
+  public function updateRecipe($recipe_id, $title, $description, $ingredients, $instructions, $category, $slug) {
+    // Sanitize inputs
+    $title = sanitize_input($title);
+    $description = sanitize_input($description);
+    $ingredients = sanitize_input($ingredients);
+    $instructions = sanitize_input($instructions);
+    $category = sanitize_input($category);
+    $slug = sanitize_input($slug);
+
+    // Update recipe in the database
+    $sql = "UPDATE recipes SET title='$title', description='$description', ingredients='$ingredients', instructions='$instructions', category='$category', slug='$slug' WHERE id='$recipe_id'";
+    if ($this->conn->query($sql) === TRUE) {
+        return true; // Recipe updated successfully
+    } else {
+        return false; // Updating recipe failed
     }
+}
+
     
     public function deleteRecipe($recipe_id, $user_id) {
       // Ensure the user owns the recipe before deletion
