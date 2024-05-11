@@ -9,21 +9,20 @@ $user = new User($conn);
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_xPOST['username'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
-
-    // Sanitize input
     $username = sanitize_input($username);
-    $password = sanitize_input($password);
 
     // Attempt login
-    if ($user->login($username, $password)) {
+    $login_result = $user->login($username, $password);
+    
+    if ($login_result === true) {
         // Login successful, redirect to home page
         header("Location: ../index.php");
         exit();
     } else {
-        // Login failed, redirect back to login page with error message
-        $_SESSION['login_error'] = "Invalid username or password.";
+        // Login failed, redirect back to login page with specific error message
+        $_SESSION['login_error'] = $login_result;
         header("Location: ../login.php");
         exit();
     }

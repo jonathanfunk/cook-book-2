@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Sanitize input
         $username = sanitize_input($username);
         $email = sanitize_input($email);
-        $password = hash_password(sanitize_input($password));
+        $password = hash_password($password);
 
         // Insert user into database
         if ($user->register($username, $email, $password)) {
