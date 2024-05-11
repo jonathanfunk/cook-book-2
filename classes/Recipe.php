@@ -5,22 +5,40 @@ class Recipe {
     public function __construct($db_conn) {
         $this->conn = $db_conn;
     }
-    
-    public function addRecipe($title, $description, $ingredients, $instructions, $user_id, $category) {
-      // Sanitize input
-      $title = mysqli_real_escape_string($this->conn, $title);
-      $description = mysqli_real_escape_string($this->conn, $description);
-      $ingredients = mysqli_real_escape_string($this->conn, $ingredients);
-      $instructions = mysqli_real_escape_string($this->conn, $instructions);
-      $category = mysqli_real_escape_string($this->conn, $category);
 
-      // Insert recipe into database
-      $sql = "INSERT INTO recipes (title, description, ingredients, instructions, user_id, category) VALUES ('$title', '$description', '$ingredients', '$instructions', '$user_id', '$category')";
-      
-      if ($this->conn->query($sql) === TRUE) {
-          return true; // Recipe added successfully
+    public function generateSlug($title) {
+      // Generate slug from title
+      return generateSlug($title);
+  }
+    
+  public function addRecipe($title, $description, $ingredients, $instructions, $user_id, $category) {
+    // Sanitize input
+    $title = mysqli_real_escape_string($this->conn, $title);
+    $description = mysqli_real_escape_string($this->conn, $description);
+    $ingredients = mysqli_real_escape_string($this->conn, $ingredients);
+    $instructions = mysqli_real_escape_string($this->conn, $instructions);
+    $category = mysqli_real_escape_string($this->conn, $category);
+    
+    // Generate slug
+    $slug = $this->generateSlug($title);
+
+    // Insert recipe into database
+    $sql = "INSERT INTO recipes (title, description, ingredients, instructions, user_id, category, slug) VALUES ('$title', '$description', '$ingredients', '$instructions', '$user_id', '$category', '$slug')";
+    
+    if ($this->conn->query($sql) === TRUE) {
+        return true; // Recipe added successfully
+    } else {
+        // Adding recipe failed
+        return false;
+    }
+  }
+  public function getRecipeBySlug($slug) {
+      $slug = mysqli_real_escape_string($this->conn, $slug);
+      $sql = "SELECT * FROM recipes WHERE slug = '$slug'";
+      $result = $this->conn->query($sql);
+      if ($result && $result->num_rows > 0) {
+          return $result->fetch_assoc();
       } else {
-          // Adding recipe failed
           return false;
       }
   }

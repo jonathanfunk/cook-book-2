@@ -22,4 +22,18 @@ function hash_password($password) {
 function verify_password($password, $hashed_password) {
     return password_verify($password, $hashed_password);
 }
+
+function generateSlug($string) {
+  // Remove special characters
+  $string = preg_replace('/[^a-zA-Z0-9\s]/', '', $string);
+  // Convert spaces to hyphens
+  $string = str_replace(' ', '-', $string);
+  // Convert to lowercase
+  $string = strtolower($string);
+  // Remove multiple consecutive hyphens
+  $string = preg_replace('/-+/', '-', $string);
+  // Trim hyphens from beginning and end
+  $string = trim($string, '-');
+  return $string;
+}
 ?>
