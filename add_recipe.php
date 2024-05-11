@@ -5,9 +5,9 @@
       <div class="card">
         <div class="card-header">Add New Recipe</div>
         <div class="card-body">
-          <form action="actions/add_recipe.php" method="post">
+          <form action="actions/add_recipe.php" method="POST">
             <div class="form-group">
-              <label for="title">Recipe Title</label>
+              <label for="title">Title</label>
               <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <div class="form-group">
@@ -16,7 +16,10 @@
             </div>
             <div class="form-group">
               <label for="ingredients">Ingredients</label>
-              <textarea class="form-control" id="ingredients" name="ingredients" rows="5" required></textarea>
+              <div id="ingredientInputs">
+                <input type="text" class="form-control mb-2" name="ingredient[]" required>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" id="addIngredient">Add Ingredient</button>
             </div>
             <div class="form-group">
               <label for="instructions">Instructions</label>
@@ -30,12 +33,46 @@
                 <option value="Lunch">Lunch</option>
                 <option value="Dinner">Dinner</option>
                 <option value="Dessert">Dessert</option>
-                <!-- Add more categories as needed -->
               </select>
             </div>
-            <!-- Add more fields as needed -->
-            <button type="submit" class="btn btn-primary">Add Recipe</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+
+          <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            const addIngredientButton = document.getElementById("addIngredient");
+            const ingredientInputs = document.getElementById("ingredientInputs");
+
+            addIngredientButton.addEventListener("click", function() {
+              const newIngredientInput = document.createElement("div");
+              newIngredientInput.className = "input-group mb-2";
+              const inputField = document.createElement("input");
+              inputField.type = "text";
+              inputField.className = "form-control";
+              inputField.name = "ingredient[]";
+              inputField.required = true;
+
+              const removeButton = document.createElement("button");
+              removeButton.type = "button";
+              removeButton.className = "btn btn-danger remove-ingredient rounded-end";
+              removeButton.textContent = "Remove";
+              removeButton.addEventListener("click", function() {
+                ingredientInputs.removeChild(newIngredientInput);
+              });
+
+              newIngredientInput.appendChild(inputField);
+              newIngredientInput.appendChild(removeButton);
+              ingredientInputs.appendChild(newIngredientInput);
+            });
+
+            // Add event listener for dynamically added remove buttons
+            ingredientInputs.addEventListener("click", function(e) {
+              if (e.target.classList.contains("remove-ingredient")) {
+                e.target.parentElement.parentElement.remove();
+              }
+            });
+          });
+          </script>
         </div>
       </div>
     </div>
