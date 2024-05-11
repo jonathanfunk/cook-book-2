@@ -1,8 +1,16 @@
 <?php
 // Function to sanitize user input
 function sanitize_input($input) {
-    global $conn;
-    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags(trim($input))));
+  global $conn;
+  // Check if the input is an array (like $_POST)
+  if (is_array($input)) {
+      foreach ($input as $key => $value) {
+          $input[$key] = sanitize_input($value); // Recursively sanitize each element
+      }
+      return $input;
+  }
+  // For non-array input (like passwords), apply escaping and sanitization
+  return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags(trim($input))));
 }
 
 // Function to hash passwords
