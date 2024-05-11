@@ -68,7 +68,12 @@ $category = $recipe_details['category'];
           <h5>Instructions:</h5>
           <p><?php echo $instructions; ?></p>
           <h5>Category: <?php echo $category; ?></h5>
-          <!-- Add more details as needed -->
+          <?php if ($_SESSION['user_id'] == $recipe_details['user_id']) { ?>
+          <form action="actions/delete_recipe.php?id=<?php echo $recipe_details['id']; ?>" method="POST"
+            onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+            <button type="submit" class="btn btn-danger">Delete Recipe</button>
+          </form>
+          <?php } ?>
         </div>
       </div>
     </div>

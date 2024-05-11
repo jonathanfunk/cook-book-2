@@ -26,6 +26,7 @@
                 session_start();
                 if (isset($_SESSION['user_id'])) {
                     // User is logged in, display logout link
+                    echo '<li class="nav-item"><a class="nav-link" href="add_recipe.php">Add Recipe</a></li>';
                     echo '<li class="nav-item"><a class="nav-link" href="actions/logout.php">Logout</a></li>';
                 } else {
                     // User is not logged in, display login/register links

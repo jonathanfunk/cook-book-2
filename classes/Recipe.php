@@ -59,14 +59,23 @@ class Recipe {
         }
     }
     
-    public function deleteRecipe($recipe_id) {
-        // Delete recipe from database
-        $sql = "DELETE FROM recipes WHERE id='$recipe_id'";
-        if ($this->conn->query($sql) === TRUE) {
-            return true; // Recipe deleted successfully
-        } else {
-            return false; // Deleting recipe failed
-        }
-    }
+    public function deleteRecipe($recipe_id, $user_id) {
+      // Ensure the user owns the recipe before deletion
+      $sql = "DELETE FROM recipes WHERE id = ? AND user_id = ?";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bind_param("ii", $recipe_id, $user_id);
+      
+      if ($stmt->execute() === TRUE) {
+          // Check if any row was affected
+          if ($stmt->affected_rows > 0) {
+              return true; // Recipe deleted successfully
+          } else {
+              return false; // Recipe not found or user doesn't own the recipe
+          }
+      } else {
+          // Deletion failed
+          return false;
+      }
+  }
 }
 ?>
