@@ -64,7 +64,14 @@ $category = $recipe_details['category'];
           <h5>Description:</h5>
           <p><?php echo $description; ?></p>
           <h5>Ingredients:</h5>
-          <p><?php echo $ingredients; ?></p>
+          <ul>
+            <?php
+              $ingredient_list = explode(",", $ingredients);
+              foreach ($ingredient_list as $ingredient) {
+                  echo "<li>$ingredient</li>";
+              }
+              ?>
+          </ul>
           <h5>Instructions:</h5>
           <p><?php echo $instructions; ?></p>
           <h5>Category: <?php echo $category; ?></h5>
