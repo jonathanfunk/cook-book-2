@@ -52,7 +52,14 @@ $description = $recipe_details['description'];
 $ingredients = $recipe_details['ingredients'];
 $instructions = $recipe_details['instructions'];
 $category = $recipe_details['category'];
-// Add more details as needed
+
+// Original image URL from the database
+$image_url = $recipe_details['image_url'];
+// Transformation parameters
+$transformation = 'ar_16:9,c_crop'; // Landscape ratio and automatic subject detection
+// Add transformation to the image URL
+$transformed_url = preg_replace('/(upload\/)/', '$1' . $transformation . '/', $image_url);
+
 ?>
 <?php include 'inc/header.php';?>
 <div class="container mt-5">
@@ -61,6 +68,11 @@ $category = $recipe_details['category'];
       <div class="card">
         <div class="card-header"><?php echo $title; ?></div>
         <div class="card-body">
+          <!-- Display image -->
+          <?php if (!empty($recipe_details['image_url'])) : ?>
+          <img src="<?php echo $transformed_url; ?>" class="img-fluid w-100 mb-3"
+            alt="<?php echo $recipe_details['title']; ?>">
+          <?php endif; ?>
           <h5>Description:</h5>
           <p><?php echo $description; ?></p>
           <h5>Ingredients:</h5>
