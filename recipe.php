@@ -50,7 +50,7 @@ if (!$recipe_details) {
 $title = $recipe_details['title'];
 $description = $recipe_details['description'];
 $ingredients = $recipe_details['ingredients'];
-$instructions = $recipe_details['instructions'];
+$instructions = str_replace(array('\r\n', '\n\r', '\n', '\r'), '<br>', $recipe_details['instructions']);
 $category = $recipe_details['category'];
 
 // Original image URL from the database
@@ -100,8 +100,6 @@ $transformed_url = preg_replace('/(upload\/)/', '$1' . $transformation . '/', $i
             </div>
           </div>
           <?php } ?>
-
-
         </div>
       </div>
     </div>

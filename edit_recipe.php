@@ -30,7 +30,7 @@ $recipe_id = $recipe_details['id'];
 $title = $recipe_details['title'];
 $description = $recipe_details['description'];
 $ingredients = $recipe_details['ingredients'];
-$instructions = $recipe_details['instructions'];
+$instructions = stripcslashes($recipe_details['instructions']);
 $category = $recipe_details['category'];
 ?>
 
@@ -41,7 +41,7 @@ $category = $recipe_details['category'];
       <div class="card">
         <div class="card-header">Edit Recipe</div>
         <div class="card-body">
-          <form action="actions/edit_recipe.php?slug=<?php echo $slug; ?>" method="POST">
+          <form action="actions/edit_recipe.php?slug=<?php echo $slug; ?>" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="recipe_id" value="<?php echo $recipe_id; ?>">
             <div class="form-group">
               <label for="title">Title</label>
@@ -75,7 +75,7 @@ $category = $recipe_details['category'];
             <div class="form-group">
               <label for="instructions">Instructions</label>
               <textarea class="form-control" id="instructions" name="instructions" rows="5"
-                required><?php echo $instructions; ?></textarea>
+                required><?php echo $instructions ?></textarea>
             </div>
             <div class="form-group">
               <label for="category">Category</label>
@@ -86,6 +86,10 @@ $category = $recipe_details['category'];
                 <option value="Dinner" <?php if($category == "Dinner") echo "selected"; ?>>Dinner</option>
                 <option value="Dessert" <?php if($category == "Dessert") echo "selected"; ?>>Dessert</option>
               </select>
+            </div>
+            <div class="form-group">
+              <label for="image">Recipe Image</label>
+              <input type="file" class="form-control-file" id="image" name="image">
             </div>
             <button type="submit" class="btn btn-primary">Update Recipe</button>
           </form>

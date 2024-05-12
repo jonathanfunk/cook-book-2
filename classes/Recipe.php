@@ -44,7 +44,7 @@ class Recipe {
       }
   }
     
-  public function updateRecipe($recipe_id, $title, $description, $ingredients, $instructions, $category, $slug) {
+  public function updateRecipe($recipe_id, $title, $description, $ingredients, $instructions, $category, $slug, $image_url) {
     // Sanitize inputs
     $title = sanitize_input($title);
     $description = sanitize_input($description);
@@ -52,9 +52,10 @@ class Recipe {
     $instructions = sanitize_input($instructions);
     $category = sanitize_input($category);
     $slug = sanitize_input($slug);
+    $image_url = sanitize_input($image_url);
 
     // Update recipe in the database
-    $sql = "UPDATE recipes SET title='$title', description='$description', ingredients='$ingredients', instructions='$instructions', category='$category', slug='$slug' WHERE id='$recipe_id'";
+    $sql = "UPDATE recipes SET title='$title', description='$description', ingredients='$ingredients', instructions='$instructions', category='$category', slug='$slug', image_url='$image_url' WHERE id='$recipe_id'";
     if ($this->conn->query($sql) === TRUE) {
         return true; // Recipe updated successfully
     } else {
