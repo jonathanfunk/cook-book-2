@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-header">Add New Recipe</div>
         <div class="card-body">
-          <form action="actions/add_recipe.php" method="POST">
+          <form action="actions/add_recipe.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
               <label for="title">Title</label>
               <input type="text" class="form-control" id="title" name="title" required>
@@ -34,6 +34,10 @@
                 <option value="Dinner">Dinner</option>
                 <option value="Dessert">Dessert</option>
               </select>
+            </div>
+            <div class="form-group">
+              <label for="image">Recipe Image</label>
+              <input type="file" class="form-control-file" id="image" name="image">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>

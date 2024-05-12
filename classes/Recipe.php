@@ -11,19 +11,20 @@ class Recipe {
       return generateSlug($title);
   }
     
-  public function addRecipe($title, $description, $ingredients, $instructions, $user_id, $category) {
+  public function addRecipe($title, $description, $ingredients, $instructions, $user_id, $category, $image_url) {
     // Sanitize input
     $title = mysqli_real_escape_string($this->conn, $title);
     $description = mysqli_real_escape_string($this->conn, $description);
     $ingredients = mysqli_real_escape_string($this->conn, $ingredients);
     $instructions = mysqli_real_escape_string($this->conn, $instructions);
     $category = mysqli_real_escape_string($this->conn, $category);
+    $image_url = mysqli_real_escape_string($this->conn, $image_url);
     
     // Generate slug
     $slug = $this->generateSlug($title);
 
     // Insert recipe into database
-    $sql = "INSERT INTO recipes (title, description, ingredients, instructions, user_id, category, slug) VALUES ('$title', '$description', '$ingredients', '$instructions', '$user_id', '$category', '$slug')";
+    $sql = "INSERT INTO recipes (title, description, ingredients, instructions, user_id, category, slug, image_url) VALUES ('$title', '$description', '$ingredients', '$instructions', '$user_id', '$category', '$slug', '$image_url')";
     
     if ($this->conn->query($sql) === TRUE) {
         return true; // Recipe added successfully
