@@ -83,12 +83,21 @@ class Recipe {
       }
   }
   // Method to get all recipes from the database
-  public function getAllRecipes() {
-    $query = "SELECT * FROM recipes";
-    $stmt = $this->conn->prepare($query);
+  public function getAllRecipes($offset, $limit) {
+    $sql = "SELECT * FROM recipes ORDER BY created_at DESC LIMIT ?, ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("ii", $offset, $limit);
     $stmt->execute();
-    $recipes = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $result = $stmt->get_result();
+    $recipes = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
     return $recipes;
-}
+  }
+  public function countRecipes() {
+    $sql = "SELECT COUNT(*) AS total_recipes FROM recipes";
+    $result = $this->conn->query($sql);
+    $row = $result->fetch_assoc();
+    return $row['total_recipes'];
+  }
 }
 ?>

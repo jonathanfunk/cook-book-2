@@ -9,7 +9,20 @@ include 'inc/header.php'; // Include header
 
 // Fetch all recipes from the database
 $recipe = new Recipe($conn);
-$recipes = $recipe->getAllRecipes();
+
+// Pagination
+$items_per_page = 6;
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offset = ($current_page - 1) * $items_per_page;
+
+// Fetch recipes
+$recipes = $recipe->getAllRecipes($offset, $items_per_page);
+
+// Get total number of recipes
+$total_recipes = $recipe->countRecipes();
+
+// Calculate total pages
+$total_pages = ceil($total_recipes / $items_per_page);
 
 ?>
 
@@ -62,6 +75,21 @@ $recipes = $recipe->getAllRecipes();
     </div>
     <?php endforeach; ?>
   </div>
+  <!-- Pagination links -->
+  <nav aria-label="Recipe Pagination">
+    <ul class="pagination justify-content-center mt-4">
+      <?php if ($current_page > 1) : ?>
+      <li class="page-item"><a class="page-link" href="?page=<?php echo $current_page - 1; ?>">Previous</a></li>
+      <?php endif; ?>
+      <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+      <li class="page-item <?php echo $i == $current_page ? 'active' : ''; ?>"><a class="page-link"
+          href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+      <?php endfor; ?>
+      <?php if ($current_page < $total_pages) : ?>
+      <li class="page-item"><a class="page-link" href="?page=<?php echo $current_page + 1; ?>">Next</a></li>
+      <?php endif; ?>
+    </ul>
+  </nav>
 </div>
 
 <?php include 'inc/footer.php'; // Include footer ?>
