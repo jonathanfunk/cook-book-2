@@ -21,6 +21,13 @@ $recipes = $recipe->getAllRecipes($offset, $items_per_page);
 // Get total number of recipes
 $total_recipes = $recipe->countRecipes();
 
+// Get filter and sort parameters
+$category = isset($_GET['category']) ? $_GET['category'] : null;
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
+
+// Fetch recipes based on filter and sort parameters
+$recipes = $recipe->getAllRecipes($offset, $items_per_page, $category, $sort);
+
 // Calculate total pages
 $total_pages = ceil($total_recipes / $items_per_page);
 
@@ -31,6 +38,34 @@ $total_pages = ceil($total_recipes / $items_per_page);
   <div class="row">
     <div class="col-md-12">
       <h2 class="mb-4">All Recipes</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form action="recipes.php" method="GET">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="category">Filter by Category:</label>
+            <select id="category" name="category" class="form-control">
+              <option value="">All Categories</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Lunch">Lunch</option>
+              <option value="Dinner">Dinner</option>
+              <option value="Dessert">Dessert</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="sort">Sort by:</label>
+            <select id="sort" name="sort" class="form-control">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
   <div class="row">

@@ -1,4 +1,11 @@
 <?php include 'inc/header.php';?>
+<?php 
+  // Check if the user is logged in
+  if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+  }
+?>
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
