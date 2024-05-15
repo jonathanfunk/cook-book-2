@@ -82,5 +82,13 @@ class Recipe {
           return false;
       }
   }
+  // Method to get all recipes from the database
+  public function getAllRecipes() {
+    $query = "SELECT * FROM recipes";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    $recipes = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    return $recipes;
+}
 }
 ?>

@@ -57,8 +57,13 @@ $category = $recipe_details['category'];
 $image_url = $recipe_details['image_url'];
 // Transformation parameters
 $transformation = 'ar_16:9,c_crop'; // Landscape ratio and automatic subject detection
-// Add transformation to the image URL
-$transformed_url = preg_replace('/(upload\/)/', '$1' . $transformation . '/', $image_url);
+
+// Add transformation to the image URL if it's not empty
+$transformed_url = '';
+if (!empty($image_url)) {
+    // Add transformation to the image URL
+    $transformed_url = preg_replace('/(upload\/)/', '$1' . $transformation . '/', $image_url);
+}
 
 ?>
 <?php include 'inc/header.php';?>
@@ -87,7 +92,7 @@ $transformed_url = preg_replace('/(upload\/)/', '$1' . $transformation . '/', $i
           <h5>Instructions:</h5>
           <p><?php echo $instructions; ?></p>
           <h5>Category: <?php echo $category; ?></h5>
-          <?php if ($_SESSION['user_id'] == $recipe_details['user_id']) { ?>
+          <?php if (isset($_SESSION['user_id']) && isset($recipe_details['user_id']) && $_SESSION['user_id'] == $recipe_details['user_id']) { ?>
           <div class="row mt-3">
             <div class="col-md-6">
               <a href="edit_recipe.php?slug=<?php echo $slug; ?>" class="btn btn-primary btn-block">Edit Recipe</a>

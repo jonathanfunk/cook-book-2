@@ -22,6 +22,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="recipes.php">Recipes</a></li>
           <?php
                 if(!isset($_SESSION)) 
                 { 

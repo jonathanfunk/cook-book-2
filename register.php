@@ -18,15 +18,15 @@ function display_error($field) {
         <div class="card-header">Register</div>
         <div class="card-body">
           <?php
-                        // Display error message if username or email is taken
-                        if (isset($_GET['error'])) {
-                            if ($_GET['error'] == 'username_taken') {
-                                echo '<div class="alert alert-danger" role="alert">Username already in use.</div>';
-                            } elseif ($_GET['error'] == 'email_taken') {
-                                echo '<div class="alert alert-danger" role="alert">Email already in use.</div>';
-                            }
-                        }
-                        ?>
+            // Display error message if username or email is taken
+            if (isset($_GET['error'])) {
+                if ($_GET['error'] == 'username_taken') {
+                    echo '<div class="alert alert-danger" role="alert">Username already in use.</div>';
+                } elseif ($_GET['error'] == 'email_taken') {
+                    echo '<div class="alert alert-danger" role="alert">Email already in use.</div>';
+                }
+            }
+          ?>
           <form action="actions/register.php" method="post">
             <div class="form-group">
               <label for="username">Username</label>
