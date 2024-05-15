@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+$primary: #ffa500;
+$dark-grey: #081828;
+
+$body-color: #888;
+$headings-color: $dark-grey;
+$font-family-base: 'Montserrat', sans-serif;
+$headings-font-weight: 800;
+$headings-line-weight: 50px;
+
+$navbar-light-color: $dark-grey;
+$navbar-light-hover-color: $primary;
+$nav-link-font-weight: 600;
+$nav-link-font-size: 15px;
+
+@import '../vendor/twbs/bootstrap/scss/bootstrap.scss';
