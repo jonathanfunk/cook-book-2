@@ -53,6 +53,19 @@ $description = $recipe_details['description'];
 $ingredients = $recipe_details['ingredients'];
 $instructions = str_replace(array('\r\n', '\n\r', '\n', '\r'), '<br>', $recipe_details['instructions']);
 $category = $recipe_details['category'];
+$publish_date = $recipe_details['created_at'];
+
+// Display author information
+$user_id = $recipe_details['user_id'];
+$user_query = "SELECT username, email FROM users WHERE id = ?";
+$user_statement = $conn->prepare($user_query);
+$user_statement->bind_param("i", $user_id); // "i" indicates integer type for user_id
+$user_statement->execute();
+$user_result = $user_statement->get_result();
+$user_details = $user_result->fetch_assoc();
+$author_name = $user_details['username'];
+$author_email = $user_details['email'];
+$user_statement->close();
 
 // Original image URL from the database
 $image_url = $recipe_details['image_url'];
@@ -83,6 +96,12 @@ if (!empty($image_url)) {
           <img src="<?php echo $transformed_url; ?>" class="img-fluid w-100 mb-3"
             alt="<?php echo $recipe_details['title']; ?>">
           <?php endif; ?>
+          <!-- Display Author Avatar -->
+          <img src="https://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($author_email))); ?>?s=100"
+            alt="<?php echo $author_name; ?>'s Avatar" class="rounded-circle mb-2">
+          <!-- Display Author Name -->
+          <h5>Author: <?php echo $author_name; ?></h5>
+          <p>Publish Date: <?php echo date('F j, Y', strtotime($publish_date)); ?></p>
           <h5>Description:</h5>
           <p><?php echo $description; ?></p>
           <h5>Ingredients:</h5>
