@@ -25,7 +25,8 @@ if (!$recipe_details) {
     $ingredients = "";
     $instructions = "";
     $category = "";
-
+    $meta_title = $title . " | Recipe Website";
+    $meta_description = $description;
     include 'inc/header.php';
     ?>
 <div class="container mt-5">
@@ -66,6 +67,10 @@ if (!empty($image_url)) {
 }
 
 ?>
+<?php
+    $meta_title = $title . " | Recipe Website";
+    $meta_description = $description;
+;?>
 <?php include 'inc/header.php';?>
 <div class="container mt-5">
   <div class="row justify-content-center">

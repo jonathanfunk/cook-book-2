@@ -1,3 +1,7 @@
+<?php
+$meta_title = "Recipe Website";
+$meta_description = "Find delicious recipes for every meal on our recipe website.";
+?>
 <?php include 'inc/header.php';?>
 <!-- Main Content -->
 <div class="container mt-4">

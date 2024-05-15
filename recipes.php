@@ -3,6 +3,8 @@ session_start();
 require_once('includes/db.php');
 require_once('includes/functions.php');
 require_once('classes/Recipe.php');
+$meta_title = "Recipes | Recipe Website";
+$meta_description = " Explore our collection of delicious recipes ranging from appetizers to desserts.";
 include 'inc/header.php'; // Include header
 
 // Fetch all recipes from the database

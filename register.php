@@ -9,7 +9,10 @@ function display_error($field) {
     return isset($errors[$field]) ? '<span class="text-danger">' . $errors[$field] . '</span>' : '';
 }
 ?>
-
+<?php
+  $meta_title = "Register | Recipe Website";
+  $meta_description = "Register for an account on our recipe website to start sharing your favorite recipes and connecting with other food enthusiasts.";
+?>
 <?php include 'inc/header.php';?>
 <div class="container mt-5">
   <div class="row justify-content-center">
