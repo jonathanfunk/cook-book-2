@@ -4,8 +4,8 @@ $login_error = isset($_SESSION['login_error']) ? $_SESSION['login_error'] : "";
 unset($_SESSION['login_error']); // Clear error after displaying
 ?>
 <?php
-$meta_title = "Login | Recipe Website";
-$meta_description = "Log in to your account on our recipe website to access your favorite recipes and more.";
+$meta_title = "Login | Cook Book";
+$meta_description = "Log in to your account on our Cook Book to access your favorite recipes and more.";
 ?>
 <?php include 'inc/header.php';?>
 <div class="container mt-5">

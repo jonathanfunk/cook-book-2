@@ -3,7 +3,7 @@ session_start();
 require_once('includes/db.php');
 require_once('includes/functions.php');
 require_once('classes/Recipe.php');
-$meta_title = "Recipes | Recipe Website";
+$meta_title = "Recipes | Cook Book";
 $meta_description = " Explore our collection of delicious recipes ranging from appetizers to desserts.";
 include 'inc/header.php'; // Include header
 
@@ -14,9 +14,6 @@ $recipe = new Recipe($conn);
 $items_per_page = 6;
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($current_page - 1) * $items_per_page;
-
-// Fetch recipes
-$recipes = $recipe->getAllRecipes($offset, $items_per_page);
 
 // Get total number of recipes
 $total_recipes = $recipe->countRecipes();

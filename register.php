@@ -10,8 +10,8 @@ function display_error($field) {
 }
 ?>
 <?php
-  $meta_title = "Register | Recipe Website";
-  $meta_description = "Register for an account on our recipe website to start sharing your favorite recipes and connecting with other food enthusiasts.";
+  $meta_title = "Register | Cook Book";
+  $meta_description = "Register for an account on our Cook Book to start sharing your favorite recipes and connecting with other food enthusiasts.";
 ?>
 <?php include 'inc/header.php';?>
 <div class="container mt-5">

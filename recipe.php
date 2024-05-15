@@ -25,7 +25,7 @@ if (!$recipe_details) {
     $ingredients = "";
     $instructions = "";
     $category = "";
-    $meta_title = $title . " | Recipe Website";
+    $meta_title = $title . " | Cook Book";
     $meta_description = $description;
     include 'inc/header.php';
     ?>
@@ -81,7 +81,7 @@ if (!empty($image_url)) {
 
 ?>
 <?php
-    $meta_title = $title . " | Recipe Website";
+    $meta_title = $title . " | Cook Book";
     $meta_description = $description;
 ;?>
 <?php include 'inc/header.php';?>

@@ -1,7 +1,7 @@
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
       <div class="container">
-        <span class="text-muted">Recipe Website &copy; <?php echo date("Y"); ?></span>
+        <span class="text-muted">Cook Book &copy; <?php echo date("Y"); ?></span>
       </div>
     </footer>
 
