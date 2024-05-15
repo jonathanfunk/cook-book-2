@@ -48,45 +48,10 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
-
-          <script>
-          document.addEventListener("DOMContentLoaded", function() {
-            const addIngredientButton = document.getElementById("addIngredient");
-            const ingredientInputs = document.getElementById("ingredientInputs");
-
-            addIngredientButton.addEventListener("click", function() {
-              const newIngredientInput = document.createElement("div");
-              newIngredientInput.className = "input-group mb-2";
-              const inputField = document.createElement("input");
-              inputField.type = "text";
-              inputField.className = "form-control";
-              inputField.name = "ingredient[]";
-              inputField.required = true;
-
-              const removeButton = document.createElement("button");
-              removeButton.type = "button";
-              removeButton.className = "btn btn-danger remove-ingredient rounded-end";
-              removeButton.textContent = "Remove";
-              removeButton.addEventListener("click", function() {
-                ingredientInputs.removeChild(newIngredientInput);
-              });
-
-              newIngredientInput.appendChild(inputField);
-              newIngredientInput.appendChild(removeButton);
-              ingredientInputs.appendChild(newIngredientInput);
-            });
-
-            // Add event listener for dynamically added remove buttons
-            ingredientInputs.addEventListener("click", function(e) {
-              if (e.target.classList.contains("remove-ingredient")) {
-                e.target.parentElement.parentElement.remove();
-              }
-            });
-          });
-          </script>
         </div>
       </div>
     </div>
   </div>
 </div>
+<?php $footer_scripts = '<script src="js/ingredient-inputs.js"></script>';?>
 <?php include 'inc/footer.php';?>
