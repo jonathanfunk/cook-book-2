@@ -11,22 +11,29 @@ include 'inc/header.php'; // Include header
 $recipe = new Recipe($conn);
 
 // Pagination
-$items_per_page = 6;
-$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-$offset = ($current_page - 1) * $items_per_page;
-
-// Get total number of recipes
-$total_recipes = $recipe->countRecipes();
+$limit = 6; // Number of recipes per page
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1; // Get current page from URL parameter
+$offset = ($current_page - 1) * $limit; // Calculate offset
 
 // Get filter and sort parameters
 $category = isset($_GET['category']) ? $_GET['category'] : null;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 
-// Fetch recipes based on filter and sort parameters
-$recipes = $recipe->getAllRecipes($offset, $items_per_page, $category, $sort);
+// Fetch recipes with applied filters
+$recipes = $recipe->getFilteredRecipes($category, $sort, $limit, $offset);
 
-// Calculate total pages
-$total_pages = ceil($total_recipes / $items_per_page);
+// Count the total number of filtered recipes
+$total_filtered_recipes = $recipe->countFilteredRecipes($category, $sort);
+
+// Calculate the total number of pages based on the filtered results
+$total_pages = ceil($total_filtered_recipes / $limit);
+
+// Ensure current page is within valid range
+$current_page = min(max(1, $current_page), $total_pages);
+
+// Calculate the offset for pagination
+$offset = ($current_page - 1) * $limit;
+
 
 ?>
 
@@ -153,7 +160,7 @@ $total_pages = ceil($total_recipes / $items_per_page);
         <?php endfor; ?>
 
         <!-- Next Page Link -->
-        <li class="page-item <?php echo ($current_page == $total_pages) ? 'disabled' : ''; ?>">
+        <li class="page-item <?php echo ($current_page == $total_pages || $total_pages == 0) ? 'disabled' : ''; ?>">
           <a class="page-link"
             href="recipes.php?page=<?php echo $current_page + 1; ?><?php echo isset($_GET['category']) ? '&category=' . $_GET['category'] : ''; ?><?php echo isset($_GET['sort']) ? '&sort=' . $_GET['sort'] : ''; ?>"
             aria-label="Next">

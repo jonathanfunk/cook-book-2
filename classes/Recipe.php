@@ -82,28 +82,6 @@ class Recipe {
           return false;
       }
   }
-  // Method to get all recipes from the database
-  public function getAllRecipes($offset = 0, $limit = null, $category = null, $sort = 'newest') {
-    $sql = "SELECT * FROM recipes";
-    if ($category) {
-        $sql .= " WHERE category = '$category'";
-    }
-    $sql .= " ORDER BY created_at ";
-    if ($sort == 'newest') {
-        $sql .= "DESC";
-    } else {
-        $sql .= "ASC";
-    }
-    if ($limit) {
-        $sql .= " LIMIT $offset, $limit";
-    }
-    $result = $this->conn->query($sql);
-    $recipes = [];
-    while ($row = $result->fetch_assoc()) {
-        $recipes[] = $row;
-    }
-    return $recipes;
-  }
 
   // Get filtered recipes
     public function getFilteredRecipes($category, $sort, $limit, $offset) {
@@ -136,13 +114,6 @@ class Recipe {
 
         return $recipes;
     }
-
-  public function countRecipes() {
-    $sql = "SELECT COUNT(*) AS total_recipes FROM recipes";
-    $result = $this->conn->query($sql);
-    $row = $result->fetch_assoc();
-    return $row['total_recipes'];
-  }
 
   public function countFilteredRecipes($category, $sort) {
     $sql = "SELECT COUNT(*) as total FROM recipes";
