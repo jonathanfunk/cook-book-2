@@ -102,7 +102,7 @@ $meta_description = "Find delicious recipes for every meal on our Cook Book.";
     <div class="row">
       <?php foreach ($recipes as $recipe) : ?>
       <div class="col-md-4 mb-4">
-        <div class="card recipe-card">
+        <div class="card recipe-card shadow-sm">
           <?php 
             // Display author information
             $user_id = $recipe['user_id'];
@@ -132,7 +132,11 @@ $meta_description = "Find delicious recipes for every meal on our Cook Book.";
           </div>
           <?php else : ?>
           <!-- Placeholder image if no image is available -->
-          <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Placeholder Image">
+          <div class="recipe-image">
+            <a href="<?php echo $recipe['slug']; ?>">
+              <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Placeholder Image">
+            </a>
+          </div>
           <?php endif; ?>
           <div class="card-body">
             <p><?php echo $author_name; ?> | <?php echo date('F j, Y', strtotime($recipe['created_at'])); ?> |

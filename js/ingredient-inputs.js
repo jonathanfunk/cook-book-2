@@ -10,12 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
 		inputField.type = 'text';
 		inputField.className = 'form-control';
 		inputField.name = 'ingredient[]';
+		inputField.required = true;
 		inputField.value = ''; // Set initial value to empty string
 		inputField.required = true;
 
 		const removeButton = document.createElement('button');
 		removeButton.type = 'button';
-		removeButton.className = 'btn btn-danger remove-ingredient';
+		removeButton.className = 'btn btn-sm btn-danger remove-ingredient';
 		removeButton.textContent = 'Remove';
 		removeButton.addEventListener('click', function () {
 			ingredientInputs.removeChild(newIngredientInput);
