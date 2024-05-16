@@ -105,11 +105,64 @@ class Recipe {
     return $recipes;
   }
 
+  // Get filtered recipes
+    public function getFilteredRecipes($category, $sort, $limit, $offset) {
+        $sql = "SELECT * FROM recipes";
+
+        // Add filters
+        if ($category) {
+            $sql .= " WHERE category = '$category'";
+        }
+        // Add sorting
+        if ($sort === 'newest') {
+            $sql .= " ORDER BY created_at DESC";
+        } elseif ($sort === 'oldest') {
+            $sql .= " ORDER BY created_at ASC";
+        }
+
+        // Add limit and offset for pagination
+        $sql .= " LIMIT $limit OFFSET $offset";
+
+        // Execute query
+        $result = $this->conn->query($sql);
+
+        // Fetch recipes
+        $recipes = [];
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $recipes[] = $row;
+            }
+        }
+
+        return $recipes;
+    }
+
   public function countRecipes() {
     $sql = "SELECT COUNT(*) AS total_recipes FROM recipes";
     $result = $this->conn->query($sql);
     $row = $result->fetch_assoc();
     return $row['total_recipes'];
   }
+
+  public function countFilteredRecipes($category, $sort) {
+    $sql = "SELECT COUNT(*) as total FROM recipes";
+
+    // Add filters
+    if ($category) {
+        $sql .= " WHERE category = '$category'";
+    }
+
+    // Execute query
+    $result = $this->conn->query($sql);
+
+    // Fetch total count
+    $total = 0;
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $total = $row['total'];
+    }
+
+    return $total;
+}
 }
 ?>

@@ -85,53 +85,63 @@ if (!empty($image_url)) {
     $meta_description = $description;
 ;?>
 <?php include 'inc/header.php';?>
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header"><?php echo $title; ?></div>
-        <div class="card-body">
+<section class="section bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow recipe-details">
+          <div class="card-body">
+            <h1><?php echo $title; ?></h1>
+            <ul class="meta">
+              <li>
+                <img src="https://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($author_email))); ?>?s=40"
+                  alt="<?php echo $author_name; ?>'s Avatar" class="rounded-circle"> <?php echo $author_name; ?>
+              </li>
+              <li>
+                <?php echo date('F j, Y', strtotime($publish_date)); ?>
+              </li>
+              <li>
+                <?php echo $category; ?>
+              </li>
+            </ul>
+          </div>
           <!-- Display image -->
           <?php if (!empty($recipe_details['image_url'])) : ?>
           <img src="<?php echo $transformed_url; ?>" class="img-fluid w-100 mb-3"
             alt="<?php echo $recipe_details['title']; ?>">
           <?php endif; ?>
-          <!-- Display Author Avatar -->
-          <img src="https://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($author_email))); ?>?s=100"
-            alt="<?php echo $author_name; ?>'s Avatar" class="rounded-circle mb-2">
-          <!-- Display Author Name -->
-          <h5>Author: <?php echo $author_name; ?></h5>
-          <p>Publish Date: <?php echo date('F j, Y', strtotime($publish_date)); ?></p>
-          <h5>Description:</h5>
-          <p><?php echo $description; ?></p>
-          <h5>Ingredients:</h5>
-          <ul>
-            <?php
+
+          <div class="card-body">
+            <h5>Description:</h5>
+            <p><?php echo $description; ?></p>
+            <h5>Ingredients:</h5>
+            <ul>
+              <?php
               $ingredient_list = explode(",", $ingredients);
               foreach ($ingredient_list as $ingredient) {
                   echo "<li>$ingredient</li>";
               }
               ?>
-          </ul>
-          <h5>Instructions:</h5>
-          <p><?php echo $instructions; ?></p>
-          <h5>Category: <?php echo $category; ?></h5>
-          <?php if (isset($_SESSION['user_id']) && isset($recipe_details['user_id']) && $_SESSION['user_id'] == $recipe_details['user_id']) { ?>
-          <div class="row mt-3">
-            <div class="col-md-6">
-              <a href="edit_recipe.php?slug=<?php echo $slug; ?>" class="btn btn-primary btn-block">Edit Recipe</a>
+            </ul>
+            <h5>Instructions:</h5>
+            <p><?php echo $instructions; ?></p>
+            <?php if (isset($_SESSION['user_id']) && isset($recipe_details['user_id']) && $_SESSION['user_id'] == $recipe_details['user_id']) { ?>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <a href="edit_recipe.php?slug=<?php echo $slug; ?>" class="btn btn-primary btn-block">Edit Recipe</a>
+              </div>
+              <div class="col-md-6">
+                <form action="actions/delete_recipe.php?id=<?php echo $recipe_details['id']; ?>" method="POST"
+                  onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+                  <button type="submit" class="btn btn-danger btn-block">Delete Recipe</button>
+                </form>
+              </div>
             </div>
-            <div class="col-md-6">
-              <form action="actions/delete_recipe.php?id=<?php echo $recipe_details['id']; ?>" method="POST"
-                onsubmit="return confirm('Are you sure you want to delete this recipe?');">
-                <button type="submit" class="btn btn-danger btn-block">Delete Recipe</button>
-              </form>
-            </div>
+            <?php } ?>
           </div>
-          <?php } ?>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 <?php include 'inc/footer.php';?>

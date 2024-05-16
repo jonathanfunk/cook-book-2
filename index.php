@@ -126,14 +126,14 @@ $meta_description = "Find delicious recipes for every meal on our Cook Book.";
           $transformed_url = preg_replace('/(upload\/)/', '$1' . $transformation . '/', $image_url);
         ?>
           <div class="recipe-image">
-            <a href="<?php echo $recipe['slug']; ?>">
+            <a href="recipe.php?slug=<?php echo $recipe['slug']; ?>">
               <img src="<?php echo $transformed_url; ?>" class="card-img-top" alt="<?php echo $recipe['title']; ?>">
             </a>
           </div>
           <?php else : ?>
           <!-- Placeholder image if no image is available -->
           <div class="recipe-image">
-            <a href="<?php echo $recipe['slug']; ?>">
+            <a href="recipe.php?slug=<?php echo $recipe['slug']; ?>">
               <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Placeholder Image">
             </a>
           </div>
