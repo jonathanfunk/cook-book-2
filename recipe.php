@@ -117,7 +117,7 @@ if (!empty($image_url)) {
             <h5>Ingredients:</h5>
             <ul>
               <?php
-              $ingredient_list = explode(",", $ingredients);
+              $ingredient_list = explode("|", $ingredients);
               foreach ($ingredient_list as $ingredient) {
                   echo "<li>$ingredient</li>";
               }
@@ -128,12 +128,13 @@ if (!empty($image_url)) {
             <?php if (isset($_SESSION['user_id']) && isset($recipe_details['user_id']) && $_SESSION['user_id'] == $recipe_details['user_id']) { ?>
             <div class="row mt-3">
               <div class="col-md-6">
-                <a href="edit_recipe.php?slug=<?php echo $slug; ?>" class="btn btn-primary btn-block">Edit Recipe</a>
+                <a href="edit_recipe.php?slug=<?php echo $slug; ?>" class="btn btn-primary d-block w-100">Edit
+                  Recipe</a>
               </div>
               <div class="col-md-6">
                 <form action="actions/delete_recipe.php?id=<?php echo $recipe_details['id']; ?>" method="POST"
                   onsubmit="return confirm('Are you sure you want to delete this recipe?');">
-                  <button type="submit" class="btn btn-danger btn-block">Delete Recipe</button>
+                  <button type="submit" class="btn btn-danger d-block w-100">Delete Recipe</button>
                 </form>
               </div>
             </div>

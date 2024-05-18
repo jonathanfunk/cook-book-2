@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize input
     $title = sanitize_input($_POST['title']);
     $description = sanitize_input($_POST['description']);
-    $ingredients = implode(",", array_map('sanitize_input', $_POST['ingredient'])); // Combine ingredients separated by comma
+    $ingredients = implode("|", array_map('sanitize_input', $_POST['ingredient'])); // Combine ingredients separated by pipe
     $instructions = sanitize_input($_POST['instructions']);
     $category = sanitize_input($_POST['category']);
     $image_url = null;

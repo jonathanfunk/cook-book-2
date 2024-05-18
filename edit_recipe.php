@@ -59,7 +59,7 @@ $category = $recipe_details['category'];
                 <label class="form-label" for="ingredients">Ingredients</label>
                 <div id="ingredientInputs">
                   <?php
-                $ingredient_list = explode(",", $ingredients);
+                $ingredient_list = explode("|", $ingredients);
                 foreach ($ingredient_list as $ingredient) {
                 ?>
                   <div class="input-group mb-2">

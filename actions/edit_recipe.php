@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $recipe_id = $_POST['recipe_id'];
     $title = sanitize_input($_POST['title']);
     $description = sanitize_input($_POST['description']);
-    $ingredients = implode(",", $_POST['ingredient']); // Convert array to comma-separated string
+    $ingredients = implode("|", $_POST['ingredient']); // Convert array to comma-separated string
     $instructions = sanitize_input($_POST['instructions']);
     $category = sanitize_input($_POST['category']);
 
