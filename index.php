@@ -139,12 +139,22 @@ $meta_description = "Find delicious recipes for every meal on our Cook Book.";
           </div>
           <?php endif; ?>
           <div class="card-body">
-            <p><?php echo $author_name; ?> | <?php echo date('F j, Y', strtotime($recipe['created_at'])); ?> |
-              <?php echo $recipe['category']; ?></p>
             <a href="recipe.php?slug=<?php echo $recipe['slug']; ?>">
               <h3 class=" card-title"><?php echo $recipe['title']; ?></h3>
             </a>
             <p class="card-text"><?php echo $recipe['description']; ?></p>
+            <ul class="meta">
+              <li>
+                <img src="https://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($author_email))); ?>?s=40"
+                  alt="<?php echo $author_name; ?>'s Avatar" class="rounded-circle"> <?php echo $author_name; ?>
+              </li>
+              <li>
+                <?php echo date('F j, Y', strtotime($recipe['created_at'])); ?>
+              </li>
+              <li>
+                <?php echo $recipe['category']; ?>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -157,7 +167,7 @@ $meta_description = "Find delicious recipes for every meal on our Cook Book.";
     <div class="row justify-content-center">
       <div class="col-12 col-lg-8 section-title">
         <h2 class="text-white">Join Our Community!</h2>
-        <p class="text-white">Register now to access exclusive recipes and cooking tips.
+        <p class="text-white mb-4">Register now to access exclusive recipes and cooking tips.
         </p>
         <a href="register.php" class="btn btn-light">Register Now</a>
       </div>
